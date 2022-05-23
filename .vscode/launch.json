@@ -1,0 +1,14 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+     {
+      "type": "cppdbg",
+      "request": "launch",
+      "name": "Debug",
+      "program": "/Users/novex/SimpleBashUtuls/src/cat/s21_cat",
+      "args": ["/Users/novex/SimpleBashUtuls/src/cat/testing", "-t"],
+      "cwd": "${workspaceFolder}",
+      "MIMode": "lldb"
+     }
+    ]
+   }

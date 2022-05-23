@@ -4,18 +4,35 @@
 #include <getopt.h>
 #include <string.h>
 
+void parce(int argc, char* argv[]);
+void processing_flags(FILE* f, int argc, char* argv[]);
+
+int main(int argc, char* argv[]) {
+    if (argc > 1)
+        parce(argc, argv);
+    else
+        printf("error");
+}
+
 void parce(int argc, char* argv[]) {
-    struct option long_opt[] = {
+    FILE* f;
+        for (int i = 0, j = 1; j != argc; j++, i++) {
+            if (argv[j][i] != '\0' && argv[j][0] != '-') {
+                f = fopen(argv[j], "r+");
+                processing_flags(f, argc, argv);
+                fclose(f);
+            }
+        }
+}
+
+void processing_flags(FILE* f, int argc, char* argv[]) {
+        static struct option long_opt[] = {
         {"number-nonblank", no_argument, NULL, 'b'},
         {"number", no_argument, NULL, 'n'},
         {"squeeze-blank", no_argument, NULL, 's'}
-    };
-    FILE* f;
-        for (int i = 0, j = 0; j != argc; i++, j++) {
-            if (argv[j][i] != '\0' && argv[j][0] != '-')
-                f = fopen(argv[j], "r+");
-        }
-    if (f) {
+        };
+
+        if (f) {
         int check;
         int useless;
         int schet = 1;
@@ -23,10 +40,6 @@ void parce(int argc, char* argv[]) {
         char prev = '\n';
         char preprev;
                 while ((check = getopt_long(argc, argv, "beEnstTv", long_opt, &useless))) {
-                    if (check == -1) {
-                        while ((putout = fgetc(f)) != EOF)
-                        fputc(putout, stdout);
-                    } else {
                         if (check) {
                             switch (check) {
                                 case 'b':
@@ -157,22 +170,15 @@ void parce(int argc, char* argv[]) {
                                     }
                                 break;   
                             }
-                        } else {
-                            while ((putout = fgetc(f)) != EOF)
-                                fputc(putout, stdout);
                         }
-                    }
                 if (check == -1)
                     break;
+            }
+            if (check == -1) {
+                while ((putout = fgetc(f)) != EOF)
+                fputc(putout, stdout);
             }
     } else {
         printf("file not found");
     }
-}
-
-int main(int argc, char* argv[]) {
-    if (argc > 1)
-        parce(argc, argv);
-    else
-        printf("error");
 }
