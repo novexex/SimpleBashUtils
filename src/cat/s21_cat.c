@@ -16,8 +16,8 @@ int main(int argc, char* argv[]) {
 
 void parce(int argc, char* argv[]) {
     FILE* f;
-        for (int i = 0, j = 1; j != argc; j++, i++) {
-            if (argv[j][i] != '\0' && argv[j][0] != '-') {
+        for (int j = 1; j != argc; j++) {
+            if (argv[j][0] != '-') {
                 f = fopen(argv[j], "r+");
                 processing_flags(f, argc, argv);
                 fclose(f);

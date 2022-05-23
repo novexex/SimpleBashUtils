@@ -6,7 +6,7 @@
       "request": "launch",
       "name": "Debug",
       "program": "/Users/novex/SimpleBashUtuls/src/cat/s21_cat",
-      "args": ["/Users/novex/SimpleBashUtuls/src/cat/testing", "-t"],
+      "args": ["-t", "/Users/novex/SimpleBashUtuls/src/cat/testing", "-t", "/Users/novex/SimpleBashUtuls/src/cat/testing"],
       "cwd": "${workspaceFolder}",
       "MIMode": "lldb"
      }
